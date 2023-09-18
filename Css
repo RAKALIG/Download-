@@ -1,0 +1,26 @@
+
+@keyframes elem-2-move {
+  5%, 95% {transform: translate(0, 0)}
+  11.6%, 21.6%, 78.2%, 88.2% {transform: translate(-27px, 0px)}
+  28.3%, 38.3%, 61.6%, 71.6% {transform: translate(-27px, 0px)}
+  44.9%, 59.9% {transform: translate(25px, 0px)}
+}
+
+@keyframes elem-3-move {
+  5%, 95% {transform: translate(0, 0)}
+  11.6%, 21.6%, 78.2%, 88.2% {transform: translate(25px, 0px)}
+  28.3%, 38.3%, 61.6%, 71.6% {transform: translate(25px, 0px)}
+  44.9%, 59.9% {transform: translate(25px, 0px)}
+}
+
+@keyframes elem-4-move {
+  5%, 95% {transform: translate(0, 0)}
+  11.6%, 21.6%, 78.2%, 88.2% {transform: translate(25px, 0px)}
+  28.3%, 38.3%, 61.6%, 71.6% {transform: translate(25px, 0px)}
+  44.9%, 59.9% {transform: translate(25px, 0px)}
+}
+
+@keyframes rotate-move {
+  15.6%, 17.6%, 48.9%, 50.9%, 82.2%, 84.2% {transform: translate(-50%, -50%) rotate(360deg)}
+  0%, 32.3%, 34.3%, 65.6%, 67.6%, 99% {transform: translate(-50%, -50%) rotate(0)}
+}
