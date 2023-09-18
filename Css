@@ -1,26 +1,32 @@
+Конечно! Вот пример программы на Python, которая находит углы треугольника по заданным сторонам:
 
-@keyframes elem-2-move {
-  5%, 95% {transform: translate(0, 0)}
-  11.6%, 21.6%, 78.2%, 88.2% {transform: translate(-27px, 0px)}
-  28.3%, 38.3%, 61.6%, 71.6% {transform: translate(-27px, 0px)}
-  44.9%, 59.9% {transform: translate(25px, 0px)}
-}
+import math
 
-@keyframes elem-3-move {
-  5%, 95% {transform: translate(0, 0)}
-  11.6%, 21.6%, 78.2%, 88.2% {transform: translate(25px, 0px)}
-  28.3%, 38.3%, 61.6%, 71.6% {transform: translate(25px, 0px)}
-  44.9%, 59.9% {transform: translate(25px, 0px)}
-}
+def find_angles(a, b, c):
+    # Используем закон косинусов для нахождения углов
+    angle_a = math.acos((b**2 + c**2 - a**2) / (2 * b * c))
+    angle_b = math.acos((a**2 + c**2 - b**2) / (2 * a * c))
+    angle_c = math.acos((a**2 + b**2 - c**2) / (2 * a * b))
+    
+    # Переводим углы из радиан в градусы
+    angle_a = math.degrees(angle_a)
+    angle_b = math.degrees(angle_b)
+    angle_c = math.degrees(angle_c)
+    
+    return angle_a, angle_b, angle_c
 
-@keyframes elem-4-move {
-  5%, 95% {transform: translate(0, 0)}
-  11.6%, 21.6%, 78.2%, 88.2% {transform: translate(25px, 0px)}
-  28.3%, 38.3%, 61.6%, 71.6% {transform: translate(25px, 0px)}
-  44.9%, 59.9% {transform: translate(25px, 0px)}
-}
+# Ввод сторон треугольника
+a = float(input("Введите длину стороны a: "))
+b = float(input("Введите длину стороны b: "))
+c = float(input("Введите длину стороны c: "))
 
-@keyframes rotate-move {
-  15.6%, 17.6%, 48.9%, 50.9%, 82.2%, 84.2% {transform: translate(-50%, -50%) rotate(360deg)}
-  0%, 32.3%, 34.3%, 65.6%, 67.6%, 99% {transform: translate(-50%, -50%) rotate(0)}
-}
+# Находим углы треугольника
+angle_a, angle_b, angle_c = find_angles(a, b, c)
+
+# Выводим результат
+print("Угол A =", angle_a)
+print("Угол B =", angle_b)
+print("Угол C =", angle_c)
+
+
+При запуске программы вы будете приглашены ввести длины сторон треугольника, после чего программа выведет значения углов A, B и C треугольника.
