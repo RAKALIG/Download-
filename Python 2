@@ -1,121 +1,95 @@
-Приношу извинения за незавершенный код. Вот продолжение программы:
-
-```python
-        elif choice == 3:
-            if array:
-                calculate_average(array)
-            else:
-                print("Массив не инициализирован.")
-        elif choice == 4:
-            if array:
-                find_max_multiple_of_three(array)
-            else:
-                print("Массив не инициализирован.")
-        elif choice == 5:
-            print("Выход из программы.")
-        else:
-            print("Некорректный выбор. Попробуйте еще раз.")
-
-menu()
-```
-
-Итак, вот полный исправленный код программы на Python. Вы можете использовать его для выполнения нужных действий с массивом:
-
+‍Конечно! Вот пример программы на Python, реализующей указанные требования:
 ```python
 import random
-
-def initialize_array(N, M):
-    """
-    Инициализация двухмерного массива случайными числами
-    """
-    array = [[random.randint(0, 100) for _ in range(M)] for _ in range(N)]
-    return array
-
+def initialize_array(n, m):
+"""
+Инициализирует двумерный массив размером n x m случайными числами.
+Возвращает инициализированный массив.
+"""
+array = []
+for i in range(n):
+    row = []
+    for j in range(m):
+        row.append(random.randint(1, 100))  # случайное число от 1 до 100
+    array.append(row)
+return array
 def calculate_average(array):
-    """
-    Вычисление среднего арифметического четных элементов массива
-    """
-    count = 0
-    total_sum = 0
-    for row in array:
-        for element in row:
-            if element % 2 == 0:
-                total_sum += element
-                count += 1
+"""
+Вычисляет среднее арифметическое четных элементов двумерного массива.
+Возвращает среднее арифметическое и флаг, указывающий на наличие четных элементов.
+"""
+count = 0
+total = 0
+for row in array:
+    for element in row:
+        if element % 2 == 0:
+            total += element
+            count += 1
+if count > 0:
+    average = total / count
+    return average, True
+else:
+    return 0, False
+def find_max_elements(array):
+"""
+Находит максимальный элемент среди элементов кратных 3,
+которые находятся в четных строках и нечетных столбцах двумерного массива.
+Выводит на экран все элементы массива больше найденного максимального и их индексы.
+"""
+max_element = float('-inf')
+for i in range(len(array)):
+    if i % 2 == 0:
+        for j in range(len(array[i])):
+            if j % 2 != 0:
+                element = array[i][j]
+                if element % 3 == 0 and element > max_element:
+                    max_element = element
 
-    if count > 0:
-        average = total_sum / count
-        print("Среднее арифметическое четных элементов:", average)
-        return True
-    else:
-        print("В массиве нет четных элементов.")
-        return False
-
-def find_max_multiple_of_three(array):
-    """
-    Поиск максимального элемента, кратного 3, среди элементов
-    массива в четных строках и нечетных столбцах
-    """
-    max_element = float('-inf')
-    max_indices = []
+if max_element != float('-inf'):
+    print(f"Максимальный элемент, кратный 3: {max_element}")
+    print("Элементы массива больше максимального и их индексы:")
     for i in range(len(array)):
-        if i % 2 == 0:  # четная строка
+        if i % 2 == 0:
             for j in range(len(array[i])):
-                if j % 2 != 0 and array[i][j] % 3 == 0:  # нечетный столбец и элемент кратный 3
-                    if array[i][j] > max_element:
-                        max_element = array[i][j]
-                        max_indices = [(i, j)]
-                    elif array[i][j] == max_element:
-                        max_indices.append((i, j))
+                if j % 2 != 0 and array[i][j] > max_element:
+                    print(f"Элемент: {array[i][j]}, Индексы: ({i}, {j})")
+else:
+    print("В массиве нет элементов, удовлетворяющих условию.")
+# Точка входа в программу
+def main():
+array = []
+while True:
+    print("Меню:")
+    print("1. Вывести массив на экран")
+    print("2. Редактировать элемент массива")
+    print("3. Вычислить среднее арифметическое четных элементов массива")
+    print("4. Найти и вывести элементы массива, удовлетворяющие условию")
+    print("5. Инициализировать новый массив")
+    print("6. Выйти из программы")
 
-    if max_element != float('-inf'):
-        print("Максимальный элемент, кратный 3:", max_element)
-        print("Индексы элементов:", max_indices)
-        return True
-    else:
-        print("В массиве нет элементов, кратных 3.")
-        return False
+    choice = input("Выберите пункт меню: ")
 
-def print_array(array):
-    """
-    Вывод массива на экран
-    """
-    for row in array:
-        for element in row:
-            print(element, end=' ')
-        print()
-
-def edit_element(array):
-    """
-    Редактирование i, j элемента массива
-    """
-    i = int(input("Введите номер строки: "))
-    j = int(input("Введите номер столбца: "))
-    if i >= 0 and i < len(array) and j >= 0 and j < len(array[i]):
-        new_value = int(input("Введите новое значение: "))
-        if new_value >= 0:
-            array[i][j] = new_value
-            print("Элемент успешно изменен.")
-            return True
+    if choice == "1":
+        if len(array) > 0:
+            print("Массив:")
+            for row in array:
+                print(row)
+            print()
         else:
-            print("Ошибка: новое значение должно быть неотрицательным.")
-            return False
-    else:
-        print("Ошибка: некорректные значения индексов.")
-        return False
-
-def menu():
-    """
-    Главное меню программы
-    """
-    choice = 0
-    array = []
-    while choice != 5:
-        print("\nМеню:")
-        print("1. Инициализировать двухмерный массив")
-        print("2. Вывести массив на экран")
-        print("3. Вычислить среднее арифметическое четных элементов")
-        print("4. Найти максимальный элемент среди элементов кратных 3")
-        print("5. Выход")
-
-        choice = int(input("Введите номер пункта меню
+            print("Массив пуст.\n")
+    elif choice == "2":
+        if len(array) > 0:
+            i = int(input("Введите номер строки: "))
+            j = int(input("Введите номер столбца: "))
+            if 0 <= i < len(array) and 0 <= j < len(array[0]):
+                new_value = int(input("Введите новое значение элемента: "))
+                if new_value >= 0:
+                    array[i][j] = new_value
+                    print("Элемент успешно изменен.\n")
+                else:
+                    print("Ошибка! Новое значение элемента должно быть неотрицательным.\n")
+            else:
+                print("Ошибка! Введенные индексы выходят за пределы массива.\n")
+        else:
+            print("Массив пуст. Сперва инициализируйте массив.\n")
+    elif
