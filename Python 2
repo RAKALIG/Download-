@@ -1,4 +1,25 @@
-Конечно, я могу помочь вам написать эту программу на Python, соответствуя всем критериям. Вот решение:
+Приношу извинения за незавершенный код. Вот продолжение программы:
+
+```python
+        elif choice == 3:
+            if array:
+                calculate_average(array)
+            else:
+                print("Массив не инициализирован.")
+        elif choice == 4:
+            if array:
+                find_max_multiple_of_three(array)
+            else:
+                print("Массив не инициализирован.")
+        elif choice == 5:
+            print("Выход из программы.")
+        else:
+            print("Некорректный выбор. Попробуйте еще раз.")
+
+menu()
+```
+
+Итак, вот полный исправленный код программы на Python. Вы можете использовать его для выполнения нужных действий с массивом:
 
 ```python
 import random
@@ -24,9 +45,11 @@ def calculate_average(array):
 
     if count > 0:
         average = total_sum / count
-        return average, True
+        print("Среднее арифметическое четных элементов:", average)
+        return True
     else:
-        return 0, False
+        print("В массиве нет четных элементов.")
+        return False
 
 def find_max_multiple_of_three(array):
     """
@@ -46,9 +69,12 @@ def find_max_multiple_of_three(array):
                         max_indices.append((i, j))
 
     if max_element != float('-inf'):
-        return max_element, max_indices, True
+        print("Максимальный элемент, кратный 3:", max_element)
+        print("Индексы элементов:", max_indices)
+        return True
     else:
-        return 0, [], False
+        print("В массиве нет элементов, кратных 3.")
+        return False
 
 def print_array(array):
     """
@@ -92,28 +118,4 @@ def menu():
         print("4. Найти максимальный элемент среди элементов кратных 3")
         print("5. Выход")
 
-        choice = int(input("Введите номер пункта меню: "))
-
-        if choice == 1:
-            N = int(input("Введите количество строк: "))
-            M = int(input("Введите количество столбцов: "))
-            array = initialize_array(N, M)
-            print("Массив успешно инициализирован.")
-        elif choice == 2:
-            if array:
-                print("Массив:")
-                print_array(array)
-            else:
-                print("Массив не инициализирован.")
-        elif choice == 3:
-            if array:
-                average, success = calculate_average(array)
-                if success:
-                    print("Среднее арифметическое четных элементов:", average)
-                else:
-                    print("В массиве нет четных элементов.")
-            else:
-                print("Массив не инициализирован.")
-        elif choice == 4:
-            if array:
-                max_element, max_indices, success = find_max_multiple_of_three(array)
+        choice = int(input("Введите номер пункта меню
