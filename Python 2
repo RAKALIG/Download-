@@ -1,121 +1,47 @@
-‍Приношу извинения за незавершенный код. Вот продолжение программы:
+‍Для решения данной задачи, я предлагаю использовать следующую функцию:
 
 ```python
-        elif choice == 3:
-            if array:
-                calculate_average(array)
-            else:
-                print("Массив не инициализирован.")
-        elif choice == 4:
-            if array:
-                find_max_multiple_of_three(array)
-            else:
-                print("Массив не инициализирован.")
-        elif choice == 5:
-            print("Выход из программы.")
+def replace_g_with_star(string):
+    # определяем длину строки
+    n = len(string)
+    # определяем первую половину строки
+    first_half = string[:n//2]
+    
+    # создаем новую строку, заменяя буквы "g" на "*"
+    new_string = ""
+    for char in string:
+        if char == "g" and char in first_half:
+            new_string += "*"
         else:
-            print("Некорректный выбор. Попробуйте еще раз.")
-
-menu()
+            new_string += char
+    
+    # выводим новую строку и сообщение о наличии или отсутствии замененных символов
+    if "*" in new_string:
+        print("Наличие замененных символов:")
+    else:
+        print("Отсутствие замененных символов:")
+    print(new_string)
 ```
 
-Итак, вот полный исправленный код программы на Python. Вы можете использовать его для выполнения нужных действий с массивом:
+Для проверки работы функции, можно добавить следующий код:
 
 ```python
-import random
+string = "python programming"
+replace_g_with_star(string)
+```
 
-def initialize_array(N, M):
-    """
-    Инициализация двухмерного массива случайными числами
-    """
-    array = [[random.randint(0, 100) for _ in range(M)] for _ in range(N)]
-    return array
+Опишу работу данной функции:
 
-def calculate_average(array):
-    """
-    Вычисление среднего арифметического четных элементов массива
-    """
-    count = 0
-    total_sum = 0
-    for row in array:
-        for element in row:
-            if element % 2 == 0:
-                total_sum += element
-                count += 1
+1. В функции `replace_g_with_star` в качестве аргумента ожидается строка `string`.
+2. Затем, мы определяем длину строки `n` с помощью функции `len()`.
+3. Далее, мы определяем первую половину строки `first_half`, используя срез `string[:n//2]`.
+4. Создаем пустую строку `new_string`, в которую будем добавлять символы с замененными "g".
+5. Проходим по каждому символу `char` в строке `string`.
+6. Проверяем условие, где символ `char` равен "g" и находится в первой половине строки `first_half`.
+   - Если условие выполняется, то добавляем "*" в `new_string`.
+   - Если условие не выполняется, то добавляем символ `char` в `new_string`.
+7. После завершения цикла, проверяем наличие замененных символов в `new_string`.
+   - Если есть замененные символы, то выдаем сообщение "Наличие замененных символов:" и выводим `new_string`.
+   - Если нет замененных символов, то выдаем сообщение "Отсутствие замененных символов:" и выводим `new_string`.
 
-    if count > 0:
-        average = total_sum / count
-        print("Среднее арифметическое четных элементов:", average)
-        return True
-    else:
-        print("В массиве нет четных элементов.")
-        return False
-
-def find_max_multiple_of_three(array):
-    """
-    Поиск максимального элемента, кратного 3, среди элементов
-    массива в четных строках и нечетных столбцах
-    """
-    max_element = float('-inf')
-    max_indices = []
-    for i in range(len(array)):
-        if i % 2 == 0:  # четная строка
-            for j in range(len(array[i])):
-                if j % 2 != 0 and array[i][j] % 3 == 0:  # нечетный столбец и элемент кратный 3
-                    if array[i][j] > max_element:
-                        max_element = array[i][j]
-                        max_indices = [(i, j)]
-                    elif array[i][j] == max_element:
-                        max_indices.append((i, j))
-
-    if max_element != float('-inf'):
-        print("Максимальный элемент, кратный 3:", max_element)
-        print("Индексы элементов:", max_indices)
-        return True
-    else:
-        print("В массиве нет элементов, кратных 3.")
-        return False
-
-def print_array(array):
-    """
-    Вывод массива на экран
-    """
-    for row in array:
-        for element in row:
-            print(element, end=' ')
-        print()
-
-def edit_element(array):
-    """
-    Редактирование i, j элемента массива
-    """
-    i = int(input("Введите номер строки: "))
-    j = int(input("Введите номер столбца: "))
-    if i >= 0 and i < len(array) and j >= 0 and j < len(array[i]):
-        new_value = int(input("Введите новое значение: "))
-        if new_value >= 0:
-            array[i][j] = new_value
-            print("Элемент успешно изменен.")
-            return True
-        else:
-            print("Ошибка: новое значение должно быть неотрицательным.")
-            return False
-    else:
-        print("Ошибка: некорректные значения индексов.")
-        return False
-
-def menu():
-    """
-    Главное меню программы
-    """
-    choice = 0
-    array = []
-    while choice != 5:
-        print("\nМеню:")
-        print("1. Инициализировать двухмерный массив")
-        print("2. Вывести массив на экран")
-        print("3. Вычислить среднее арифметическое четных элементов")
-        print("4. Найти максимальный элемент среди элементов кратных 3")
-        print("5. Выход")
-
-        choice = int(input("Введите номер пункта меню
+Таким образом, функция `replace_g_with_star` заменяет все буквы "g", встречающиеся среди первых n/2 символов, на "*".
