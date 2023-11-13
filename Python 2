@@ -1,47 +1,127 @@
-‍Для решения данной задачи, я предлагаю использовать следующую функцию:
+# Программа для работы с глоссарием терминов
 
-```python
-def replace_g_with_star(string):
-    # определяем длину строки
-    n = len(string)
-    # определяем первую половину строки
-    first_half = string[:n//2]
+import csv
+
+# Функция для создания глоссария на основе текстового файла
+def create_glossary():
+    file_name = input("Введите имя файла: ")
+    terms = {} # словарь для хранения терминов и их толкований
+
+    try:
+        with open(file_name, 'r', encoding='utf-8') as file:
+            lines = file.readlines()
+            for line in lines:
+                term, definition = line.strip().split(': ')
+                terms[term] = definition
+
+        print("Глоссарий успешно создан!")
+
+    except FileNotFoundError:
+        print("Файл не найден!")
     
-    # создаем новую строку, заменяя буквы "g" на "*"
-    new_string = ""
-    for char in string:
-        if char == "g" and char in first_half:
-            new_string += "*"
-        else:
-            new_string += char
+    return terms
+
+# Функция для сохранения глоссария в файл
+def save_glossary(glossary):
+    file_name = input("Введите имя файла для сохранения: ")
+
+    with open(file_name, 'w', encoding='utf-8') as file:
+        writer = csv.writer(file)
+        for term, definition in glossary.items():
+            writer.writerow([term, definition])
+
+    print("Глоссарий успешно сохранен!")
+
+# Функция для загрузки глоссария из файла
+def load_glossary():
+    file_name = input("Введите имя файла для загрузки: ")
+    terms = {}
+
+    try:
+        with open(file_name, 'r', encoding='utf-8') as file:
+            reader = csv.reader(file)
+            for row in reader:
+                terms[row[0]] = row[1]
+
+        print("Глоссарий успешно загружен!")
+
+    except FileNotFoundError:
+        print("Файл не найден!")
+
+    return terms
+
+# Функция для дополнения глоссария парами термин : толкование термина
+def add_to_glossary(glossary):
+    term = input("Введите термин: ")
+    definition = input("Введите толкование термина: ")
+    glossary[term] = definition
+
+    print("Термин успешно добавлен в глоссарий!")
+
+# Функция для удаления из глоссария пар термин : толкование термина
+def remove_from_glossary(glossary):
+    term = input("Введите термин, который нужно удалить: ")
     
-    # выводим новую строку и сообщение о наличии или отсутствии замененных символов
-    if "*" in new_string:
-        print("Наличие замененных символов:")
+    if term in glossary:
+        del glossary[term]
+        print("Термин успешно удален из глоссария!")
     else:
-        print("Отсутствие замененных символов:")
-    print(new_string)
-```
+        print("Термин не найден в глоссарии!")
 
-Для проверки работы функции, можно добавить следующий код:
+# Функция для вывода глоссария на экран
+def display_glossary(glossary):
+    if glossary:
+        print("\nГлоссарий терминов:")
+        for term, definition in glossary.items():
+            print(f"{term}: {definition}")
+    else:
+        print("Глоссарий пуст!")
 
-```python
-string = "python programming"
-replace_g_with_star(string)
-```
+# Функция для поиска в глоссарии толкования термина и вывода его на экран
+def search_term(glossary):
+    term = input("Введите термин для поиска: ")
 
-Опишу работу данной функции:
+    if term in glossary:
+        print(f"\nТолкование термина '{term}':")
+        print(glossary[term])
+    else:
+        print("Термин не найден в глоссарии!")
 
-1. В функции `replace_g_with_star` в качестве аргумента ожидается строка `string`.
-2. Затем, мы определяем длину строки `n` с помощью функции `len()`.
-3. Далее, мы определяем первую половину строки `first_half`, используя срез `string[:n//2]`.
-4. Создаем пустую строку `new_string`, в которую будем добавлять символы с замененными "g".
-5. Проходим по каждому символу `char` в строке `string`.
-6. Проверяем условие, где символ `char` равен "g" и находится в первой половине строки `first_half`.
-   - Если условие выполняется, то добавляем "*" в `new_string`.
-   - Если условие не выполняется, то добавляем символ `char` в `new_string`.
-7. После завершения цикла, проверяем наличие замененных символов в `new_string`.
-   - Если есть замененные символы, то выдаем сообщение "Наличие замененных символов:" и выводим `new_string`.
-   - Если нет замененных символов, то выдаем сообщение "Отсутствие замененных символов:" и выводим `new_string`.
+# Главная функция для работы с глоссарием
+def main():
+    glossary = {}
 
-Таким образом, функция `replace_g_with_star` заменяет все буквы "g", встречающиеся среди первых n/2 символов, на "*".
+    while True:
+        print("\nМеню:")
+        print("1. Создать глоссарий")
+        print("2. Сохранить глоссарий в файл")
+        print("3. Загрузить глоссарий из файла")
+        print("4. Добавить термин в глоссарий")
+        print("5. Удалить термин из глоссария")
+        print("6. Вывести глоссарий на экран")
+        print("7. Поиск толкования термина")
+        print("0. Выход\n")
+
+        choice = input("Введите номер действия: ")
+
+        if choice == "1":
+            glossary = create_glossary()
+        elif choice == "2":
+            save_glossary(glossary)
+        elif choice == "3":
+            glossary = load_glossary()
+        elif choice == "4":
+            add_to_glossary(glossary)
+        elif choice == "5":
+  remove_from_glossary(glossary)
+        elif choice == "6":
+            display_glossary(glossary)
+        elif choice == "7":
+            search_term(glossary)
+        elif choice == "0":
+            break
+        else:
+            print("Неверный номер действия, попробуйте снова!")
+
+# Запуск программы
+main()
