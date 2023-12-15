@@ -1,17 +1,18 @@
-Функция dup в Python будет выглядеть так:
+Для такой задачи можно использовать следующий код на Python:
 
 ```python
-def dup(input_string):
-    words = input_string.split()
-    word_count = 0
-    output_string = ""
-    for word in words:
-        if word == "word":
-            word_count += 1
-            if word_count % 2 == 0:
-                word = "wordword"
-        output_string += word + " "
-    return output_string.strip()
+with open('input.txt', 'r') as file:
+    lines = file.readlines()
+
+output = []
+for line in lines:
+    words = line.split()
+    selected_words = ' '.join([words[i] for i in range(1, len(words), 2)])
+    output.append(selected_words)
+
+with open('output.txt', 'w') as file:
+    for line in output:
+        file.write(line + '\n')
 ```
 
-Эта функция делит входную строку на слова, затем проходит по каждому слову и заменяет каждое второе вхождение слова "word" на "wordword".
+Этот код прочитает файл input.txt, извлечет каждое второе слово из каждой строки, и запишет результат в файл output.txt, сохраняя исходную структуру строк.
