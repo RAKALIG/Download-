@@ -1,18 +1,13 @@
-Для такой задачи можно использовать следующий код на Python:
+Конечно, вот код, который выполняет задание:
 
 ```python
-with open('input.txt', 'r') as file:
-    lines = file.readlines()
+with open('input.txt', 'r') as infile:
+    text = infile.read().split()
 
-output = []
-for line in lines:
-    words = line.split()
-    selected_words = ' '.join([words[i] for i in range(1, len(words), 2)])
-    output.append(selected_words)
+selected_words = ' '.join(text[i] for i in range(1, len(text), 2))
 
-with open('output.txt', 'w') as file:
-    for line in output:
-        file.write(line + '\n')
+with open('output.txt', 'w') as outfile:
+    outfile.write(selected_words)
 ```
 
-Этот код прочитает файл input.txt, извлечет каждое второе слово из каждой строки, и запишет результат в файл output.txt, сохраняя исходную структуру строк.
+Этот код открывает файл `input.txt`, считывает его содержимое и затем выбирает каждое второе слово, а затем записывает выбранные слова в файл `output.txt`.
