@@ -1,13 +1,14 @@
-Конечно, вот код, который выполняет задание:
+Конечно, вот пример кода на Python, который выполняет описанную вами задачу:
 
-```python
-with open('input.txt', 'r') as infile:
-    text = infile.read().split()
+with open('input.txt', 'r') as file:
+    data = file.read()
+    words = data.split()
+    result = ' '.join(words[1::2])
 
-selected_words = ' '.join(text[i] for i in range(1, len(text), 2))
+with open('output.txt', 'w') as file:
+    file.write(result)
 
-with open('output.txt', 'w') as outfile:
-    outfile.write(selected_words)
-```
 
-Этот код открывает файл `input.txt`, считывает его содержимое и затем выбирает каждое второе слово, а затем записывает выбранные слова в файл `output.txt`.
+Этот код читает файл 'input.txt', разделяет его содержимое на слова, затем формирует новую строку, включающую каждое второе слово, и записывает эту строку в 'output.txt'. 
+
+Надеюсь, это поможет вам выполнить задачу. Если у вас появятся другие вопросы или потребуется дополнительная помощь, пожалуйста, дайте мне знать!
