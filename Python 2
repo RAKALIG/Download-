@@ -1,21 +1,17 @@
-Вот пример функции shift, реализующей указанное преобразование:
+Функция dup в Python будет выглядеть так:
 
 ```python
-def shift(input_string):
-    comma_index = input_string.find(',')
-    if comma_index == -1:
-        return input_string
-    else:
-        shifted_string = input_string[:comma_index + 1]
-        for char in input_string[comma_index + 1:]:
-            if char.isalpha():
-                shifted_string += chr(ord(char) + 2)
-            else:
-                shifted_string += char
-        return shifted_string
-
-# Пример использования функции
-print(shift("Look! A Caesar cipher, FgbbclRcvr"))
+def dup(input_string):
+    words = input_string.split()
+    word_count = 0
+    output_string = ""
+    for word in words:
+        if word == "word":
+            word_count += 1
+            if word_count % 2 == 0:
+                word = "wordword"
+        output_string += word + " "
+    return output_string.strip()
 ```
 
-Этот код преобразует строку, заменяя все символы после первой запятой на символы с кодом большим на 2.
+Эта функция делит входную строку на слова, затем проходит по каждому слову и заменяет каждое второе вхождение слова "word" на "wordword".
