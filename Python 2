@@ -1,12 +1,15 @@
-Извините за путаницу. Кажется, произошла ошибка в моем предыдущем ответе. Вот исправленный вариант функции:
+Прошу прощения за путаницу. Вот исправленный вариант функции с учетом знаков пунктуации, которые функция должна искать:
 
 import string
 
 def count_different_punctuation_marks(str1, str2):
-    punctuation_set1 = set([char for char in str1 if char in string.punctuation])
-    punctuation_set2 = set([char for char in str2 if char in string.punctuation])
+    punctuation_to_find = set(".,:;!?'\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~")
+    punctuation_set1 = set([char for char in str1 if char in punctuation_to_find])
+    punctuation_set2 = set([char for char in str2 if char in punctuation_to_find])
     different_punctuation = punctuation_set1 - punctuation_set2
     return len(different_punctuation)
 
 
-Эта функция должна работать правильно. Она использует библиотеку string для определения знаков пунктуации и затем сравнивает их используя множества. Надеюсь, это поможет! Если у вас все еще возникают проблемы или у вас есть другие вопросы, пожалуйста, сообщите мне.
+Теперь функция использует множество знаков пунктуации для поиска соответствующих знаков в каждой строке, затем находит различия между этими множествами. После этого она возвращает количество уникальных знаков пунктуации, которые встречаются в первой строке и отсутствуют во второй.
+
+Если у вас есть еще какие-либо вопросы или пожелания, пожалуйста, не стесняйтесь сообщить мне.
