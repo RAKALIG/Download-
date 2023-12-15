@@ -1,127 +1,21 @@
-# Программа для работы с глоссарием терминов
+Вот пример функции shift, реализующей указанное преобразование:
 
-import csv
-
-# Функция для создания глоссария на основе текстового файла
-def create_glossary():
-    file_name = input("Введите имя файла: ")
-    terms = {} # словарь для хранения терминов и их толкований
-
-    try:
-        with open(file_name, 'r', encoding='utf-8') as file:
-            lines = file.readlines()
-            for line in lines:
-                term, definition = line.strip().split(': ')
-                terms[term] = definition
-
-        print("Глоссарий успешно создан!")
-
-    except FileNotFoundError:
-        print("Файл не найден!")
-    
-    return terms
-
-# Функция для сохранения глоссария в файл
-def save_glossary(glossary):
-    file_name = input("Введите имя файла для сохранения: ")
-
-    with open(file_name, 'w', encoding='utf-8') as file:
-        writer = csv.writer(file)
-        for term, definition in glossary.items():
-            writer.writerow([term, definition])
-
-    print("Глоссарий успешно сохранен!")
-
-# Функция для загрузки глоссария из файла
-def load_glossary():
-    file_name = input("Введите имя файла для загрузки: ")
-    terms = {}
-
-    try:
-        with open(file_name, 'r', encoding='utf-8') as file:
-            reader = csv.reader(file)
-            for row in reader:
-                terms[row[0]] = row[1]
-
-        print("Глоссарий успешно загружен!")
-
-    except FileNotFoundError:
-        print("Файл не найден!")
-
-    return terms
-
-# Функция для дополнения глоссария парами термин : толкование термина
-def add_to_glossary(glossary):
-    term = input("Введите термин: ")
-    definition = input("Введите толкование термина: ")
-    glossary[term] = definition
-
-    print("Термин успешно добавлен в глоссарий!")
-
-# Функция для удаления из глоссария пар термин : толкование термина
-def remove_from_glossary(glossary):
-    term = input("Введите термин, который нужно удалить: ")
-    
-    if term in glossary:
-        del glossary[term]
-        print("Термин успешно удален из глоссария!")
+```python
+def shift(input_string):
+    comma_index = input_string.find(',')
+    if comma_index == -1:
+        return input_string
     else:
-        print("Термин не найден в глоссарии!")
+        shifted_string = input_string[:comma_index + 1]
+        for char in input_string[comma_index + 1:]:
+            if char.isalpha():
+                shifted_string += chr(ord(char) + 2)
+            else:
+                shifted_string += char
+        return shifted_string
 
-# Функция для вывода глоссария на экран
-def display_glossary(glossary):
-    if glossary:
-        print("\nГлоссарий терминов:")
-        for term, definition in glossary.items():
-            print(f"{term}: {definition}")
-    else:
-        print("Глоссарий пуст!")
+# Пример использования функции
+print(shift("Look! A Caesar cipher, FgbbclRcvr"))
+```
 
-# Функция для поиска в глоссарии толкования термина и вывода его на экран
-def search_term(glossary):
-    term = input("Введите термин для поиска: ")
-
-    if term in glossary:
-        print(f"\nТолкование термина '{term}':")
-        print(glossary[term])
-    else:
-        print("Термин не найден в глоссарии!")
-
-# Главная функция для работы с глоссарием
-def main():
-    glossary = {}
-
-    while True:
-        print("\nМеню:")
-        print("1. Создать глоссарий")
-        print("2. Сохранить глоссарий в файл")
-        print("3. Загрузить глоссарий из файла")
-        print("4. Добавить термин в глоссарий")
-        print("5. Удалить термин из глоссария")
-        print("6. Вывести глоссарий на экран")
-        print("7. Поиск толкования термина")
-        print("0. Выход\n")
-
-        choice = input("Введите номер действия: ")
-
-        if choice == "1":
-            glossary = create_glossary()
-        elif choice == "2":
-            save_glossary(glossary)
-        elif choice == "3":
-            glossary = load_glossary()
-        elif choice == "4":
-            add_to_glossary(glossary)
-        elif choice == "5":
-  remove_from_glossary(glossary)
-        elif choice == "6":
-            display_glossary(glossary)
-        elif choice == "7":
-            search_term(glossary)
-        elif choice == "0":
-            break
-        else:
-            print("Неверный номер действия, попробуйте снова!")
-
-# Запуск программы
-main()
+Этот код преобразует строку, заменяя все символы после первой запятой на символы с кодом большим на 2.
