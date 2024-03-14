@@ -1,49 +1,100 @@
-Конечно, вот пример решения задачи на C#:
+Конечно! Вот пример простой программы на C#, которая реализует эти операции для целочисленного массива:
 
 using System;
 
 class Program
 {
-    static void Main(string[] args)
+    static void Main()
     {
-        int[] array = { 2, 4, 1, 8, 0 };
-        int[] newArray = CalculateSumOfNeighbors(array);
+        int[] array = new int[10];
+        int length = 0;
 
-        Console.WriteLine("Исходный массив:");
-        PrintArray(array);
-
-        Console.WriteLine("\nНовый массив:");
-        PrintArray(newArray);
-    }
-
-    static int[] CalculateSumOfNeighbors(int[] array)
-    {
-        int[] result = new int[array.Length];
-
-        for (int i = 0; i < array.Length; i++)
+        while (true)
         {
-            if (i == 0)
-            {
-                result[i] = array[i] + array[i + 1];
-            }
-            else if (i == array.Length - 1)
-            {
-                result[i] = array[i] + array[i - 1];
-            }
-            else
-            {
-                result[i] = array[i - 1] + array[i] + array[i + 1];
-            }
-        }
+            Console.WriteLine("Выберите операцию:");
+            Console.WriteLine("1-добавление в конец числа к");
+            Console.WriteLine("2-удаление элемента с номером к");
+            Console.WriteLine("3-вставка в массив на к-тое место элемента п");
+            Console.WriteLine("4-изменение к-того элемента на значение п");
+            Console.WriteLine("-1 - завершение работы");
+            int operation = Convert.ToInt32(Console.ReadLine());
 
-        return result;
-    }
+            if (operation == -1)
+            {
+                break;
+            }
 
-    static void PrintArray(int[] array)
-    {
-        foreach (var item in array)
-        {
-            Console.Write(item + " ");
+            switch (operation)
+            {
+                case 1:
+                    Console.WriteLine("Введите число, которое нужно добавить в конец массива:");
+                    int k = Convert.ToInt32(Console.ReadLine());
+                    array[length] = k;
+                    length++;
+                    break;
+                case 2:
+                    Console.WriteLine("Введите номер элемента, который нужно удалить:");
+                    int indexToRemove = Convert.ToInt32(Console.ReadLine());
+                    if (indexToRemove >= 0 && indexToRemove < length)
+                    {
+                        for (int i = indexToRemove; i < length - 1; i++)
+                        {
+                            array[i] = array[i + 1];
+                        }
+                        length--;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Неверный номер элемента");
+                    }
+                    break;
+                case 3:
+                    Console.WriteLine("Введите номер позиции, на которую нужно вставить элемент:");
+                    int position = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Введите значение элемента, который нужно вставить:");
+                    int p = Convert.ToInt32(Console.ReadLine());
+                    if (position >= 0 && position < length)
+                    {
+                        for (int i = length; i > position; i--)
+                        {
+                            array[i] = array[i - 1];
+                        }
+                        array[position] = p;
+                        length++;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Неверная позиция для вставки");
+                    }
+                    break;
+                case 4:
+                    Console.WriteLine("Введите номер элемента, который нужно изменить:");
+                    int indexToChange = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Введите новое значение элемента:");
+                    int newValue = Convert.ToInt32(Console.ReadLine());
+                    if (indexToChange >= 0 && indexToChange < length)
+                    {
+                        array[indexToChange] = newValue;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Неверный номер элемента");
+                    }
+                    break;
+                default:
+                    Console.WriteLine("Неверная операция");
+                    break;
+            }
+
+            Console.WriteLine("Текущий массив:");
+            for (int i = 0; i < length; i++)
+            {
+                Console.Write(array[i] + " ");
+            }
+            Console.WriteLine();
         }
     }
 }
+
+
+Эта программа позволяет пользователю выбирать операции и выполнять их для заданного массива.
