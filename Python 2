@@ -1,100 +1,67 @@
-Вот пример реализации операций над целочисленным массивом на C#:
-
+Конечно, вот пример реализации на C#:
 using System;
+using System.Collections.Generic;
 
-class Program
+namespace IntegerArrayOperations
 {
-    static void Main()
+    class Program
     {
-        int[] arr = { 2, 4, 1, 8, 0 };
+        static List<int> integerList = new List<int>() { 2, 4, 1, 8, 0 };
 
-        PrintArray(arr);
-
-        int action;
-        do
+        static void Main(string[] args)
         {
-            Console.WriteLine("Выберите действие:\n1 - добавление в конец числа к\n2 - удаление элемента с номером k\n3 - вставка в массив на k-тое место элемента p\n4 - изменение k-того элемента на значение p\n-1 - завершение работы");
-            action = int.Parse(Console.ReadLine());
+            Console.WriteLine("Исходный массив:");
+            PrintArray();
 
-            if (action == 1)
+            int choice;
+            do
             {
-                Console.Write("Введите число для добавления: ");
-                int k = int.Parse(Console.ReadLine());
-                AppendElement(ref arr, k);
-                PrintArray(arr);
-            }
-            else if (action == 2)
-            {
-                Console.Write("Введите номер элемента для удаления: ");
-                int k = int.Parse(Console.ReadLine());
-                RemoveElement(ref arr, k);
-                PrintArray(arr);
-            }
-            else if (action == 3)
-            {
-                Console.Write("Введите индекс для вставки: ");
-                int k = int.Parse(Console.ReadLine());
-                Console.Write("Введите значение для вставки: ");
-                int p = int.Parse(Console.ReadLine());
-                InsertElement(ref arr, k, p);
-                PrintArray(arr);
-            }
-            else if (action == 4)
-            {
-                Console.Write("Введите номер элемента для изменения: ");
-                int k = int.Parse(Console.ReadLine());
-                Console.Write("Введите новое значение: ");
-                int p = int.Parse(Console.ReadLine());
-                ModifyElement(ref arr, k, p);
-                PrintArray(arr);
-            }
-        } while (action != -1);
-    }
+                Console.WriteLine("Выберите операцию (1 - добавление, 2 - удаление, 3 - вставка, 4 - изменение, -1 - завершение): ");
+                choice = Convert.ToInt32(Console.ReadLine());
 
-    static void PrintArray(int[] arr)
-    {
-        Console.Write("{");
-        for (int i = 0; i < arr.Length; i++)
-        {
-            Console.Write(arr[i]);
-            if (i < arr.Length - 1)
-            {
-                Console.Write(",");
-            }
+                switch (choice)
+                {
+                    case 1:
+                        Console.WriteLine("Введите число для добавления в конец: ");
+                        int numberToAdd = Convert.ToInt32(Console.ReadLine());
+                        integerList.Add(numberToAdd);
+                        PrintArray();
+                        break;
+                    case 2:
+                        Console.WriteLine("Введите номер элемента для удаления: ");
+                        int indexToRemove = Convert.ToInt32(Console.ReadLine());
+                        integerList.RemoveAt(indexToRemove);
+                        PrintArray();
+                        break;
+                    case 3:
+                        Console.WriteLine("Введите номер элемента для вставки: ");
+                        int indexToInsert = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Введите число для вставки: ");
+                        int numberToInsert = Convert.ToInt32(Console.ReadLine());
+                        integerList.Insert(indexToInsert, numberToInsert);
+                        PrintArray();
+                        break;
+                    case 4:
+                        Console.WriteLine("Введите номер элемента для изменения: ");
+                        int indexToChange = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Введите новое число: ");
+                        int newNumber = Convert.ToInt32(Console.ReadLine());
+                        integerList[indexToChange] = newNumber;
+                        PrintArray();
+                        break;
+                    default:
+                        break;
+                }
+            } while (choice != -1);
         }
-        Console.WriteLine("}");
-    }
 
-    static void AppendElement(ref int[] arr, int k)
-    {
-        Array.Resize(ref arr, arr.Length + 1);
-        arr[arr.Length - 1] = k;
-    }
-
-    static void RemoveElement(ref int[] arr, int k)
-    {
-        for (int i = k; i < arr.Length - 1; i++)
+        static void PrintArray()
         {
-            arr[i] = arr[i + 1];
+            foreach (var number in integerList)
+            {
+                Console.Write(number + " ");
+            }
+            Console.WriteLine();
         }
-        Array.Resize(ref arr, arr.Length - 1);
-    }
-
-    static void InsertElement(ref int[] arr, int k, int p)
-    {
-        Array.Resize(ref arr, arr.Length + 1);
-        for (int i = arr.Length - 1; i > k; i--)
-        {
-            arr[i] = arr[i - 1];
-        }
-        arr[k] = p;
-    }
-
-    static void ModifyElement(ref int[] arr, int k, int p)
-    {
-        arr[k] = p;
     }
 }
-
-
-Эта программа предоставляет меню для выбора операций над массивом. В зависимости от выбранной операции, пользователь может добавлять, удалять, вставлять и модифицировать элементы массива. После каждой операции выводится текущее состояние массива.
