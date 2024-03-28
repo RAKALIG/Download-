@@ -1,67 +1,81 @@
-Конечно, вот пример реализации на C#:
+Конечно, вот пример решения данной задачи на языке C#:
+
 using System;
-using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
-namespace IntegerArrayOperations
+class Program
 {
-    class Program
+    static void Main()
     {
-        static List<int> integerList = new List<int>() { 2, 4, 1, 8, 0 };
+        // Шаг 1
+        Console.Write("Введите число n (<=40): ");
+        int n = int.Parse(Console.ReadLine());
 
-        static void Main(string[] args)
+        using (StreamWriter f1 = new StreamWriter("f1.txt"))
         {
-            Console.WriteLine("Исходный массив:");
-            PrintArray();
-
-            int choice;
-            do
+            for (int i = 2; i <= n; i += 2) // все четные числа <=n
             {
-                Console.WriteLine("Выберите операцию (1 - добавление, 2 - удаление, 3 - вставка, 4 - изменение, -1 - завершение): ");
-                choice = Convert.ToInt32(Console.ReadLine());
-
-                switch (choice)
-                {
-                    case 1:
-                        Console.WriteLine("Введите число для добавления в конец: ");
-                        int numberToAdd = Convert.ToInt32(Console.ReadLine());
-                        integerList.Add(numberToAdd);
-                        PrintArray();
-                        break;
-                    case 2:
-                        Console.WriteLine("Введите номер элемента для удаления: ");
-                        int indexToRemove = Convert.ToInt32(Console.ReadLine());
-                        integerList.RemoveAt(indexToRemove);
-                        PrintArray();
-                        break;
-                    case 3:
-                        Console.WriteLine("Введите номер элемента для вставки: ");
-                        int indexToInsert = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine("Введите число для вставки: ");
-                        int numberToInsert = Convert.ToInt32(Console.ReadLine());
-                        integerList.Insert(indexToInsert, numberToInsert);
-                        PrintArray();
-                        break;
-                    case 4:
-                        Console.WriteLine("Введите номер элемента для изменения: ");
-                        int indexToChange = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine("Введите новое число: ");
-                        int newNumber = Convert.ToInt32(Console.ReadLine());
-                        integerList[indexToChange] = newNumber;
-                        PrintArray();
-                        break;
-                    default:
-                        break;
-                }
-            } while (choice != -1);
+                f1.WriteLine(i);
+            }
         }
 
-        static void PrintArray()
+        // Шаг 2
+        using (StreamWriter f2 = new StreamWriter("f2.txt"))
         {
-            foreach (var number in integerList)
+            int count = 0;
+            for (int i = 2; count < n; i++)
             {
-                Console.Write(number + " ");
+                if (IsPrime(i))
+                {
+                    f2.WriteLine(i);
+                    count++;
+                }
             }
-            Console.WriteLine();
+        }
+
+        // Шаг 3
+        using (StreamReader sr = new StreamReader("f1.txt"))
+        {
+            string line;
+            int count = 1;
+            while ((line = sr.ReadLine()) != null)
+            {
+                if (count % 2 == 0)
+                {
+                    Console.WriteLine(line);
+                }
+                count++;
+            }
+        }
+
+        // Шаг 4
+        using (StreamReader sr = new StreamReader("f2.txt"))
+        {
+            string line;
+            while ((line = sr.ReadLine()) != null)
+            {
+                if (line.EndsWith("7"))
+                {
+                    Console.WriteLine(line);
+                }
+            }
         }
     }
+
+
+    static bool IsPrime(int number)
+    {
+        if (number < 2) return false;
+        if (number == 2) return true;
+        if (number % 2 == 0) return false;
+        for (int i = 3; i * i <= number; i += 2)
+        {
+            if (number % i == 0) return false;
+        }
+        return true;
+    }
 }
+
+
+Этот код выполняет все четыре требования задачи: создает файлы, записывает и считывает из них числа и выполняет соответствующие условия.
