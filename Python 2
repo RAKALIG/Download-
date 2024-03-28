@@ -1,81 +1,58 @@
-Конечно, вот пример решения данной задачи на языке C#:
+Конечно, вот пример решения задания на языке C# с использованием классов StreamWriter и StreamReader:
 
 using System;
 using System.IO;
-using System.Linq;
 
 class Program
 {
     static void Main()
     {
-        // Шаг 1
-        Console.Write("Введите число n (<=40): ");
-        int n = int.Parse(Console.ReadLine());
+        string inputFileName = "t1.txt";
+        string outputFileName = "t2.txt";
 
-        using (StreamWriter f1 = new StreamWriter("f1.txt"))
+        using (StreamReader reader = new StreamReader(inputFileName))
         {
-            for (int i = 2; i <= n; i += 2) // все четные числа <=n
+            using (StreamWriter writer = new StreamWriter(outputFileName))
             {
-                f1.WriteLine(i);
-            }
-        }
-
-        // Шаг 2
-        using (StreamWriter f2 = new StreamWriter("f2.txt"))
-        {
-            int count = 0;
-            for (int i = 2; count < n; i++)
-            {
-                if (IsPrime(i))
+                int lineNumber = 1;
+                string line;
+                while ((line = reader.ReadLine()) != null)
                 {
-                    f2.WriteLine(i);
-                    count++;
+                    writer.WriteLine($"{lineNumber}. {line} ({line.Length} символов)");
+                    lineNumber++;
                 }
             }
         }
 
-        // Шаг 3
-        using (StreamReader sr = new StreamReader("f1.txt"))
-        {
-            string line;
-            int count = 1;
-            while ((line = sr.ReadLine()) != null)
-            {
-                if (count % 2 == 0)
-                {
-                    Console.WriteLine(line);
-                }
-                count++;
-            }
-        }
-
-        // Шаг 4
-        using (StreamReader sr = new StreamReader("f2.txt"))
-        {
-            string line;
-            while ((line = sr.ReadLine()) != null)
-            {
-                if (line.EndsWith("7"))
-                {
-                    Console.WriteLine(line);
-                }
-            }
-        }
-    }
-
-
-    static bool IsPrime(int number)
-    {
-        if (number < 2) return false;
-        if (number == 2) return true;
-        if (number % 2 == 0) return false;
-        for (int i = 3; i * i <= number; i += 2)
-        {
-            if (number % i == 0) return false;
-        }
-        return true;
+        Console.WriteLine("Преобразование завершено.");
     }
 }
 
 
-Этот код выполняет все четыре требования задачи: создает файлы, записывает и считывает из них числа и выполняет соответствующие условия.
+И вот версия с использованием класса File:
+
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        string inputFileName = "t1.txt";
+        string outputFileName = "t2.txt";
+
+        string[] lines = File.ReadAllLines(inputFileName);
+        using (StreamWriter writer = new StreamWriter(outputFileName))
+        {
+            for (int i = 0; i < lines.Length; i++)
+            {
+                writer.WriteLine($"{i + 1}. {lines[i]} ({lines[i].Length} символов)");
+            }
+        }
+
+        Console.WriteLine("Преобразование завершено.");
+    }
+}
+
+
+Обе версии выполнят указанную задачу: считывают строки из файла t1.txt, добавляют номер строки в начало и количество символов в конец, и записывают результат в файл t2.txt.
