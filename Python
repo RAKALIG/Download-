@@ -1,91 +1,57 @@
-Вот решение вашей задачи:
+Для начала создадим несколько классов для предметной области. Например, классы `Reader` и `Book`. 
 
-import random
+```csharp
+class Reader
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public List<Book> Books { get; set; }
+}
 
-# Функция для инициализации двумерного массива случайными числами
-def init_array(n, m):
-    array = []
-    for i in range(n):
-        row = []
-        for j in range(m):
-            row.append(random.randint(1, 100))
-        array.append(row)
-    return array
+class Book
+{
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public string Author { get; set; }
+}
+```
 
-# Функция для вычисления среднего арифметического четных элементов массива
-def calc_average(array):
-    count = 0
-    total = 0
-    for row in array:
-        for num in row:
-            if num % 2 == 0:
-                total += num
-                count += 1
-    if count > 0:
-        return total / count, True
-    else:
-        return 0, False
+Затем, создадим класс для работы с данными, который будет отвечать за добавление, удаление, редактирование и выборку данных из текстовых файлов.
 
-# Функция для поиска максимального элемента среди элементов кратных 3
-# в четных строках и нечетных столбцах
-def find_max_multiple_of_3(array):
-    max_num = float('-inf')
-    max_index = None
-    for i in range(len(array)):
-        if i % 2 == 0:
-            for j in range(len(array[i])):
-                if j % 2 != 0 and array[i][j] % 3 == 0:
-                    if array[i][j] > max_num:
-                        max_num = array[i][j]
-                        max_index = (i, j)
-    return max_num, max_index
+```csharp
+class DataHandler
+{
+    public void AddReader(Reader reader)
+    {
+        // код для добавления читателя в файл
+    }
 
-# Инициализация двумерного массива
-n = int(input("Введите количество строк: "))
-m = int(input("Введите количество столбцов: "))
-array = init_array(n, m)
+    public void RemoveReader(int readerId)
+    {
+        // код для удаления читателя из файла
+    }
 
-while True:
-    print("\nМеню:")
-    print("1. Вывод массива на экран")
-    print("2. Редактирование элемента массива")
-    print("3. Вычисление среднего арифметического четных элементов массива")
-    print("4. Поиск максимального элемента в четных строках и нечетных столбцах, кратного 3")
+    public void EditReader(Reader reader)
+    {
+        // код для редактирования информации о читателе
+    }
 
-    choice = int(input("Выберите пункт меню (1-4): "))
+    public List<Reader> GetAllReaders()
+    {
+        // код для получения всех читателей из файла
+        return new List<Reader>();
+    }
 
-    if choice == 1:
-        for row in array:
-            print(row)
-    elif choice == 2:
-        i = int(input("Введите номер строки: "))
-        j = int(input("Введите номер столбца: "))
-        if 0 <= i < n and 0 <= j < m:
-            value = int(input("Введите новое значение: "))
-            array[i][j] = value
-        else:
-            print("Введены некорректные индексы")
-    elif choice == 3:
-        average, success = calc_average(array)
-        if success:
-            print("Среднее арифметическое четных элементов массива:", average)
-        else:
-            print("В массиве нет четных элементов")
-    elif choice == 4:
-        max_num, max_index = find_max_multiple_of_3(array)
-        if max_index:
-            print("Максимальный элемент, кратный 3, в четных строках и нечетных столбцах:", max_num)
-            print("Индексы элементов больших найденного максимального элемента:")
-            for i in range(len(array)):
-                for j in range(len(array[i])):
-                    if array[i][j] > max_num:
-                        print("Индексы:", (i, j), "Значение:", array[i][j])
-        else:
-            print("В массиве нет подходящих элементов")
-    else:
-        print("Некорректный выбор")
+    public List<Book> GetBooksForReader(int readerId)
+    {
+        // код для получения списка книг для конкретного читателя
+        return new List<Book>();
+    }
+}
+```
 
+Далее создадим форму для отображения обобщенной информации о читателях и их книгах.
 
-При запуске программы вам будет предложено ввести количество строк и столбцов для инициализации массива. Затем вы увидите меню с возможными операциями. Введите номер нужной операции, чтобы выполнить соответствующие действия.
+Наконец, создадим форму "с подчиненной" для просмотра информации о конкретном читателе и книгах, которые он брал.
 
-Программа выводит массив, позволяет редактировать элементы массива, вычисляет среднее арифметическое четных элементов и находит максимальный элемент, кратный 3, в четных строках и нечетных столбцах.
+Это лишь общая структура, и вам придется дополнить код конкретными реализациями методов и логикой для работы с текстовыми файлами.
